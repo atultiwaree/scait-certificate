@@ -1,6 +1,6 @@
 {
   "name": "certificate-generator",
-  "homepage": "https://atultiwaree.github.io/scait-certificate/",
+  "homepage": "https://atultiwaree.github.io/scait-certificate",
   "private": true,
   "version": "0.0.0",
   "type": "module",
