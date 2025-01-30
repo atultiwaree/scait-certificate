@@ -166,7 +166,7 @@ export default function CertificateForm() {
         console.log(JSON.stringify(formattedData));
 
         try {
-            const response = await fetch("http://localhost:8000/generate-image", {
+            const response = await fetch("https://scaitbackend.onrender.com/generate-image", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formattedData),
@@ -222,7 +222,7 @@ export default function CertificateForm() {
         console.log(JSON.stringify(formattedData));
 
         try {
-            const response = await fetch("http://localhost:8000/generate-diploma", {
+            const response = await fetch("https://scaitbackend.onrender.com/generate-diploma", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formattedData),
