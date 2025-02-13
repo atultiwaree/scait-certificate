@@ -1,18 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import CertificateForm from '../MainPage'
 
 
-function App() {
-  const [count, setCount] = useState(0)
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import StudentResult from '../StudentResult';
 
-  return (
-    <>
-      <CertificateForm/>
-    </>
-  )
+
+
+export default function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/scait-certificate" element={<CertificateForm />} />
+                <Route path="/scait-certificate/result" element={<StudentResult />} />
+            </Routes>
+        </Router>
+    );
 }
-
-export default App

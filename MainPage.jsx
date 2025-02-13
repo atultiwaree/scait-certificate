@@ -151,6 +151,7 @@ export default function CertificateForm() {
             });
 
         let photoBase64 = null;
+
         if (formData.photo) {
             photoBase64 = await toBase64(formData.photo);
         }
@@ -166,23 +167,30 @@ export default function CertificateForm() {
         console.log(JSON.stringify(formattedData));
 
         try {
-            const response = await fetch("http://localhost:3000/generate-image", {
+           
+            const response = await fetch("https://scaitbackend.onrender.com/save-student", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formattedData),
             });
 
             if (!response.ok) throw new Error('Failed to generate certificate');
+            else {
+                if(response.status === 201) {
+                    alert("Done")
+                    
+                }
+            }
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'certificate.png';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            // const blob = await response.blob();
+            // const url = window.URL.createObjectURL(blob);
+            // const a = document.createElement('a');
+            // a.href = url;
+            // a.download = 'certificate.png';
+            // document.body.appendChild(a);
+            // a.click();
+            // document.body.removeChild(a);
+            // window.URL.revokeObjectURL(url);
 
         } catch (error) {
             console.error("Error generating certificate:", error);
@@ -190,61 +198,6 @@ export default function CertificateForm() {
         }
     };
 
-    const handleGenerateDiploma = async () => {
-        // Check if image is selected and valid
-        if (formData.photoError) {
-            alert("Please select a valid image (max 500x500 pixels).");
-            return;
-        }
-
-        // Convert image to Base64
-        const toBase64 = (file) =>
-            new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = (error) => reject(error);
-            });
-
-        let photoBase64 = null;
-        if (formData.photo) {
-            photoBase64 = await toBase64(formData.photo);
-        }
-
-        // Prepare the data to match the required JSON format
-        const formattedData = {
-            ...formData,
-            dob: new Date(formData.dob).toISOString(), // Convert dob to ISO string
-            dateOfIssue: new Date(formData.dateOfIssue).toISOString(), // Convert dateOfIssue to ISO string
-            photo: photoBase64 // Include the Base64 image
-        };
-
-        console.log(JSON.stringify(formattedData));
-
-        try {
-            const response = await fetch("http://localhost:3000/generate-diploma", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formattedData),
-            });
-
-            if (!response.ok) throw new Error('Failed to generate diploma');
-
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'diploma.png';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-
-        } catch (error) {
-            console.error("Error generating diploma:", error);
-            alert("Failed to generate the diploma. Please try again.");
-        }
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex flex-col items-center p-6">
@@ -402,14 +355,9 @@ export default function CertificateForm() {
                         onClick={handleGenerateCertificate}
                         className="w-1/2 bg-blue-600 text-white p-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
                     >
-                        Generate Certificate
+                        Submit Data
                     </button>
-                    <button
-                        onClick={handleGenerateDiploma}
-                        className="w-1/2 bg-green-600 text-white p-4 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-lg"
-                    >
-                        Generate Diploma
-                    </button>
+ 
                 </div>
             </div>
         </div>
