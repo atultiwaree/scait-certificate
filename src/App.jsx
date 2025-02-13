@@ -4,17 +4,16 @@ import CertificateForm from '../MainPage'
 
 
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StudentResult from '../StudentResult';
-
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 
 export default function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/scait-certificate" element={<CertificateForm />} />
-                <Route path="/scait-certificate/result" element={<StudentResult />} />
+                <Route path="/" element={<CertificateForm />} />
+                <Route path="/result" element={<StudentResult />} />
             </Routes>
         </Router>
     );
